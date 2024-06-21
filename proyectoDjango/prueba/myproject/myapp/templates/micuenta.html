@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    /* Estilo para el formulario de edición */
+    .edit-mode .readonly {
+        display: none;
+    }
+
+    /* Estilo para la tarjeta */
+    .card {
+        width: 400px;
+        margin: 0 auto; /* Alineación al centro */
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+        border-radius: 10px 10px 0 0;
+        padding: 10px 0;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    /* Estilo para el botón de editar */
+    .edit-btn {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .edit-btn:hover {
+        background-color: #218838;
+        border-color: #218838;
+    }
+
+    /* Estilo para el enlace "Home" */
+    .home-link {
+        text-align: center;
+        margin-top: 20px;
+        display: block;
+    }
+</style>
+
+<div class="container mt-4">
+
+    <div class="card">
+        <h1 class="card-header">Mi Cuenta</h1>
+        <div class="card-body">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div class="readonly">
+                <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
+                <p><strong>Correo electrónico:</strong> {{ user.email }}</p>
+                <p><strong>Nombre:</strong> {{ user.first_name }}</p>
+                <p><strong>Apellido:</strong> {{ user.last_name }}</p>
+            </div>
+            <form method="POST" enctype="multipart/form-data" class="edit-mode">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <a href="{% url 'index' %}" class="home-link">Home</a> <!-- Enlace a la página de inicio -->
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function enableEditMode() {
+        document.querySelector('.edit-mode').style.display = 'block';
+        document.querySelector('.readonly').style.display = 'none';
+    }
+</script>
+{% endblock %}

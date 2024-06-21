@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}DeMaldyStore - Inicio{% endblock %}
+
+{% block content %}
+    <div class="contenedor-carrusel">
+        <ul>
+            <li>
+                <img src="{% static 'images/jordan.jpg' %}" alt="jordan">
+            </li>
+            <li>
+                <img src="{% static 'images/nike.jpg' %}" alt="nike">
+            </li>
+            <li>
+                <img src="{% static 'images/puma.jpg' %}" alt="puma">
+            </li>
+            <li>
+                <img src="{% static 'images/newera.png' %}" alt="newera">
+            </li>
+        </ul>
+    </div>
+    <div class="contenedor-oferta">
+        <h2>Marcas Destacadas/Ofertas/De Temporada</h2>
+    </div>
+    {% if mensaje %}
+    <div class="alert alert-success">
+        {{ mensaje }}
+    </div>
+    {% endif %}
+    <div class="contenedor-galeria">
+        <div class="row">
+            <div class="column" id="1">
+                <img src="{% static 'images/bape800.jpg' %}" alt="galeryJordan">
+                <img src="{% static 'images/nike350.jpg' %}" alt="galeryVans">
+                <img src="{% static 'images/champ.jpg' %}" alt="galeryVans">
+            </div>
+            <div class="column">
+                <img src="{% static 'images/centrojordan.jpg' %}" alt="banervertical">
+            </div>
+            <div class="column">
+                <img src="{% static 'images/galerytrapstar.jpg' %}" alt="galerytrapstar">
+                <img src="{% static 'images/galerysupreme.jpg' %}" alt="galerysupreme">
+            </div>
+        </div>
+    </div>
+    <div class="contenedor-iconos">
+        <div class="icono">
+            <img src="{% static 'images/despacho.png' %}" alt="despacho">
+            <p>Despacho a todo Chile</p>
+        </div>
+        <div class="icono">
+            <img src="{% static 'images/pago1.png' %}" alt="pagos">
+            <p>Debito y Credito</p>
+        </div>
+        <div class="icono">
+            <img src="{% static 'images/webseguro.png' %}" alt="webseguro">
+            <p>Sitio Web Protegido</p>
+        </div>
+    </div>
+    {% endblock %}
+  
+</body>
+</html>

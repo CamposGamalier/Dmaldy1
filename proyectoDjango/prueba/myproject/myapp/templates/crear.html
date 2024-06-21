@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}DeMaldyStore - Editar{% endblock %}
+
+{% block content %}
+    
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .error-control{
+            border: 1px solid red;
+        }
+
+        label.error{
+            color:red;
+            width: 200px;
+            font-size: 0.8em;
+            margin-top: -5px;
+            margin-bottom:10px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <script>
+        $(function(){
+            $("#formulario").validate({
+                rules:{
+                    nombre: "required",
+                    descripcion: "required",
+                    precio: "required",
+                    imagen: "required"
+                },
+                messages:{
+                    nombre:{
+                        required: "Ingrese el nombre del producto"
+                    },
+                    descripcion:{
+                        required: "Ingrese la descripción del producto"
+                    },
+                    precio:{
+                        required: "Ingrese el precio del producto"
+                    },
+                    imagen:{
+                        required: "Ingrese una imagen del producto"
+                    }
+                }
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+   
+
+    <main class="container">
+        <style>
+            .form-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+    
+            .form-container {
+                max-width: 400px;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #f8f9fa;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+    
+            .form-group {
+                margin-bottom: 15px;
+            }
+    
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                text-align: left;
+            }
+    
+            .form-group input,
+            .form-group select {
+                width: calc(100% - 20px);
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+    
+            .btn-success {
+                background-color: #28a745;
+                border-color: #28a745;
+                color: #fff;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
+    
+        
+        <div class="form-wrapper">
+            <div class="form-container">
+                <h2>Crear Producto</h2>
+                <form action="{% url 'crear_producto' %}" method="POST" id="formulario" enctype="multipart/form-data">
+                    {% csrf_token %}
+    
+                    <div class="form-group">
+                        {{ productoform.nombre.label }}
+                        {{ productoform.nombre }}
+                    </div>
+    
+                    <div class="form-group">
+                        {{ productoform.descripcion.label }}
+                        {{ productoform.descripcion }}
+                    </div>
+    
+                    <div class="form-group">
+                        {{ productoform.precio.label }}
+                        {{ productoform.precio }}
+                    </div>
+                    <div class="form-group">
+                        {{ productoform.categoria.label }}
+                        {{ productoform.categoria }}
+                    </div>
+                    <div class="form-group">
+                        {{ productoform.stock.label }}
+                        {{ productoform.stock }}
+                    </div>
+    
+                    <div class="form-group">
+                        {{ productoform.imagen.label }}
+                        {{ productoform.imagen }}
+                    </div>
+    
+                    <input type="submit" value="Crear Producto" class="btn btn-success">
+                </form>
+            </div>
+        </div>
+    </main>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/scriptt.js' %}" defer></script>
+    <style>
+        /* Estilo para la ventana flotante */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <form id="ticketForm" method="post" action="{% url 'crear_ticket' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="button" id="closeButton" class="close-button1">&times;</button> 
+        <h1>Nuevo Ticket</h1>
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div>
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" required>
+        </div>
+        <div>
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" required>
+                <option value="">Selecciona una categoría</option>
+                <option value="problema_tecnico">Producto en mal estado</option>
+                <option value="consulta">Problema de envio</option>
+                <option value="solicitud">Reclamos y Sugerencias</option>
+                <option value="otro">Otro</option>
+            </select>
+        </div>
+        <div>
+            <label for="descripcion">Descripción del Problema:</label>
+            <br>
+            <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+        </div>
+        <div>
+            <label for="imagen">Adjuntar Imagen:</label>
+            <label for="imagen" class="adjuntar-boton">Adjuntar</label>
+            <input type="file" id="imagen" name="imagen" accept="image/*">
+        </div>        
+        <div class="popup" id="popupMessage">
+            <p id="popupText"></p>
+        </div>
+        <br>
+        <button type="submit">Enviar Ticket</button>
+        <button type="button" id="verTicketsBtn">Ver Tickets</button>
+    </form>
+    <script>
+        
+        function showPopup(message) {
+            var popup = document.getElementById('popupMessage');
+            var popupText = document.getElementById('popupText');
+
+            popupText.textContent = message;
+            popup.style.display = 'block';
+
+            setTimeout(function() {
+                popup.style.display = 'none';
+                setTimeout(function() {
+                    window.location.replace("{% url 'index' %}");
+                }, 1000);
+            }, 1500);
+        }
+
+        var form = document.getElementById('ticketForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var nombre = document.getElementById('nombre').value;
+            var correo = document.getElementById('correo').value;
+            var categoria = document.getElementById('categoria').value;
+            var descripcion = document.getElementById('descripcion').value;
+
+            if (nombre.trim() === '' || correo.trim() === '' || categoria === '' || descripcion.trim() === '') {
+                alert('Por favor, completa todos los campos obligatorios.');
+            } else {
+                showPopup('Ticket creado exitosamente.');
+                form.submit();
+            }
+        });
+    </script>
+</body>
+</html>

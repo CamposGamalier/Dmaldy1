@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Historial de Compras</h1>
+    {% if purchases %}
+        <ul>
+            {% for purchase in purchases %}
+                <li>
+                    <strong>Fecha de Compra:</strong> {{ purchase.fecha_compra }} <br>
+                    <strong>Total:</strong> {{ purchase.total }} <br>
+                    <strong>Estado del Pedido:</strong> {{ purchase.estado_pedido }} <br>
+                    <strong>Detalles:</strong>
+                    <ul>
+                        {% for detail in purchase.detalles.all %}
+                            <li>{{ detail.producto.nombre }} - Cantidad: {{ detail.cantidad }} - Precio Total: {{ detail.precio_total }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron compras.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,498 @@
+body{
+    background-image: url('/static/images/fondo5.jpg');
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-content {
+    width: 100%;
+    max-width: 450px;
+    background: linear-gradient(135deg, #0b0c0b, rgb(20, 16, 238));
+    padding: 50px 60px 70px;
+    text-align: center;
+    border-radius: 25px;
+    position: relative;
+}
+
+.form-content h1 {
+    font-size: 30px;
+    margin-bottom: 60px;
+    color: #04bd7d;
+    position: relative;
+}
+
+.form-content h1::after {
+    content: '';
+    width: 30px;
+    height: 4px;
+    border-radius: 3px;
+    background: #04bd7d;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.input-field {
+    background-color: #515966;
+    margin: 15px 0;
+    border-radius: 30px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    overflow: hidden;
+    transition: max-height 1s ease; /* Agregamos la transición para max-height */
+}
+
+input,
+select {
+    width: calc(100% - 30px); /* Ancho del 100% menos el espacio para el icono */
+    background: transparent;
+    border: 0;
+    outline: none;
+    padding: 18px 15px;
+    color: #ffffff;
+    transition: width 1s ease; /* Agregamos la transición para el ancho */
+}
+
+
+input::placeholder {
+    color: #ffffff;
+}
+
+.input-field i {
+    margin-left: 15px;
+    color: #04bd7d;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto; /* Ajusta el ancho automáticamente */
+    margin-right: 5px; /* Margen derecho para separar del texto */
+}
+
+form p {
+    color: #ffffff;
+    text-align: left;
+    font-size: 13px;
+}
+
+form p a {
+    color: #04bd7d;
+    margin-left: 5px;
+}
+
+.btn-field {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-field button {
+    flex-basis: 48%;
+    font-size: 16px;
+    background-color: #04bd7d;
+    color: #ffffff;
+    height: 40px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 0.5s ease; /* Agregamos la transición para el color de fondo */
+}
+
+.btn-field button.disable {
+    background-color: #eaeaea;
+    color: #2c2f35;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+.input-field.fade-out {
+    animation: fadeOut 0.5s forwards;
+}
+/* Efecto de barra verde difuminada al pasar el cursor sobre el campo de entrada */
+.input-field input:hover:not(:focus),
+.input-field select:hover:not(:focus) {
+    background-image: linear-gradient(to right, #04bd7d, transparent);
+    background-position: bottom;
+    background-size: 200% 5px; /* Grosor de la barra y su difuminado */
+    background-repeat: no-repeat;
+}
+/* Ocultar el input checkbox real */
+.input-field input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Estilo personalizado para el checkbox */
+.input-field input[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border: 2px solid #04bd7d;
+    border-radius: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* Estilo del checkbox seleccionado */
+.input-field input[type="checkbox"]:checked + label::before {
+    background-color: #04bd7d;
+}
+
+/* Estilo del tick dentro del checkbox */
+.input-field input[type="checkbox"] + label::after {
+    content: "\f00c"; /* Código de la fuente de FontAwesome para el tick */
+    font-family: FontAwesome;
+    font-size: 14px;
+    color: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Estilos generales para los checkboxes */
+input[type="checkbox"] {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Estilo para cuando el checkbox está seleccionado */
+input[type="checkbox"]:checked {
+    background-color: #04bd7d;
+    border-color: #04bd7d;
+}
+
+/* Estilos para el tick dentro del checkbox */
+input[type="checkbox"]:checked::before {
+    font-family: 'Font Awesome\ 5 Free';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: white;
+}
+
+/* Estilos adicionales para la etiqueta junto al checkbox */
+label[for="recibir"], label[for="tyc"], label[for="remember"] {
+    margin-left: 5px;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+/* Estilo para el contenedor del checkbox y la etiqueta */
+#recibir, #tyc ,#remember {
+    display: flex;
+    align-items: center;
+}
+
+/* Cambiar cursor al pasar sobre el checkbox */
+input[type="checkbox"]:hover {
+    background-color: #f5f5f5;
+}
+/* Estilo para el enlace dentro del label del checkbox de Términos y Condiciones */
+#tyc a {
+    color: #04bd7d; /* Cambia el color del enlace a tu preferencia */
+    text-decoration: none; /* Quita la subrayado predeterminado del enlace si lo deseas */
+}
+
+/* Estilo para el enlace cuando se pasa el mouse sobre él */
+#tyc a:hover {
+    text-decoration: underline; /* Agrega un subrayado al pasar el mouse sobre el enlace si lo deseas */
+}
+/* Estilo para el contenido dentro del select region */
+#region option {
+    background-color: black;
+    color: #04bd7d;
+}
+
+/* Estilo para el contenido dentro del select comuna */
+#comuna option {
+    background-color: black;
+    color: #04bd7d;
+}
+/* Estilos para el botón de cerrar */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 28px;
+    background-color: transparent;
+    border: none;
+    font-size: 50px;
+    cursor: pointer;
+    color: #04bd7d;; /* Color del icono (puedes cambiarlo según tu preferencia) */
+    z-index: 9999; /* Asegura que el botón esté por encima del contenido del modal */
+}
+
+.close-button:hover {
+    color: #555; /* Cambia el color del icono al pasar el mouse sobre él */
+}
+
+/* Estilos para la imagen del formulario */
+.form-image {
+    max-width: 100%;
+    height: auto;
+    cursor: pointer;
+    margin-bottom: 20px; /* Espacio entre la imagen y el contenido del formulario */
+    animation: rotateImage 6s linear infinite; /* Nombre de la animación y duración */
+}
+
+/* Animación de rotación para la imagen */
+@keyframes rotateImage {
+    0%, 100% {
+        transform: rotate(0deg); /* Rotación inicial y final */
+    }
+    25% {
+        transform: rotate(45deg); /* Rotación horaria */
+    }
+    75% {
+        transform: rotate(-45deg); /* Rotación antihoraria */
+    }
+}
+/* Efecto de agrandamiento al pasar el cursor */
+.form-image:hover {
+    transform: scale(1.5); /* Agrandar la imagen al pasar el cursor sobre ella */
+}
+
+/* Estilos para los mensajes de advertencia */
+.warnings {
+    color: red; /* Cambia el color del mensaje de error */
+    font-size: 14px; /* Cambia el tamaño del texto */
+    font-weight: bold; /* Hace que el mensaje de error sea más prominente */
+}
+
+.input-field .warnings {
+    position: relative; /* Establecer la posición absoluta para el mensaje de advertencia */
+    left: -200px;
+    text-align: left;
+   
+}
+/* Estilo para los campos de entrada cuando hay una advertencia */
+.input-field.warning input,
+.input-field.warning select {
+    background-color: #ffcccc; /* Cambiar el color de fondo a rojo */
+    border: 1px solid red; /* Agregar un borde rojo */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Agregar transiciones */
+}
+/* Estilos para el mensaje de registro exitoso */
+.success-message {
+    color: #04bd7d; /* Cambia el color del mensaje a verde */
+    font-size: 24px; /* Cambia el tamaño del texto del mensaje */
+    margin-top: 20px; /* Añade un espacio superior */
+}
+
+/* Estilos para el logo */
+.form-image {
+    max-width: 150px; /* Cambia el ancho máximo del logo */
+    height: auto;
+    cursor: pointer;
+    margin-bottom: 20px; /* Espacio entre la imagen y el contenido del formulario */
+    animation: rotateImage 6s linear infinite; /* Nombre de la animación y duración */
+}
+/* Estilos para los iconos de redes sociales */
+.social-icons {
+    margin-top: 20px; /* Espacio superior */
+}
+
+.social-icon {
+    display: inline-block; /* Mostrar en línea */
+    margin-right: 10px; /* Margen derecho entre los iconos */
+    font-size: 44px; /* Tamaño de fuente */
+    color: #333; /* Color de los íconos */
+    transition: color 0.3s ease; /* Transición para el cambio de color */
+    cursor: pointer;
+}
+
+/* Cambiar color al pasar el cursor sobre los iconos */
+.social-icon:hover {
+    color: #04bd7d;
+}
+
+.rotate {
+    transform: rotateY(180deg);
+    transition: transform 1s ease; /* Agregar una transición suave */
+}
+/* Agrega una transición suave para los cambios de opacidad y altura */
+.input-field, #emailInput, #passwordInput {
+    transition: opacity 1s ease, max-height 1s ease;
+}
+
+/* Clase para mostrar los campos de correo y contraseña */
+.visible {
+    opacity: 1;
+    max-height: initial;
+}
+
+#downloadButton {
+    flex-basis: 48%;
+    font-size: 16px;
+    background-color: #04bd7d;
+    color: #ffffff;
+    height: 40px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 0.5s ease;
+}
+
+#downloadButton:hover {
+    background-color: #048e5e;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  .modal {
+    display: none; /* Ocultar el modal por defecto */
+    position: fixed; /* Fijar el modal en la ventana */
+    z-index: 1; /* Poner el modal por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permitir desplazamiento si el contenido es demasiado grande */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro semitransparente */
+}
+
+.modal-content {
+    background-color: #fefefe; /* Fondo blanco */
+    margin: 10% auto; /* Margen superior e inferior del 10% y centrado horizontalmente */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del contenido del modal */
+    max-width: 600px; /* Ancho máximo del modal */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+    .form-content {
+        padding: 10% 12%; /* Ajustar el padding para pantallas más pequeñas */
+    }
+
+    .form-content h1 {
+        font-size: 5vw; /* Tamaño de fuente relativo */
+        margin-bottom: 8vw; /* Margen inferior relativo */
+    }
+
+    .input-field {
+        margin: 5% 0; /* Margen relativo */
+    }
+
+    input,
+    select {
+        padding: 5% 4%; /* Padding relativo */
+    }
+
+    .form-image {
+        margin-bottom: 5%; /* Margen inferior relativo */
+    }
+}
+#passwordStrength {
+    margin-top: 10px;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 5px;
+    width: 200px;
+    position: relative;
+}
+
+#passwordStrength::before {
+    content: "";
+    display: block;
+    height: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 0; /* Comenzamos con una barra de progreso de ancho cero */
+    transition: width 0.3s ease; /* Agregamos una transición suave para el cambio de ancho */
+}
+
+#passwordStrength.weak::before {
+    background-color: #ff4d4d;
+}
+
+#passwordStrength.medium::before {
+    background-color: #ffcc00;
+}
+
+#passwordStrength.strong::before {
+    background-color: #00cc66;
+}
+/* Añade estas reglas a tu archivo CSS (gamstyle.css) */
+.input-field {
+    transition: all 0.5s ease-in-out;
+    opacity: 1;
+    height: auto;
+}
+
+.input-field.hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+#correo, #password {
+    display: block;
+}

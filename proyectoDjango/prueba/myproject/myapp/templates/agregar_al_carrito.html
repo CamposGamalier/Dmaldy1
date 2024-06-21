@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar al Carrito</title>
+    <!-- Estilos CSS, enlaces a archivos externos, etc. -->
+</head>
+<body>
+    <!-- Tu barra de navegación u otros elementos comunes -->
+
+    <div class="main-container">
+        <div class="container">
+            <h2>Agregar al Carrito</h2>
+            <form action="{% url 'agregar_al_carrito' %}" method="post">
+                {% csrf_token %}
+                <!-- Aquí podrías incluir campos adicionales si es necesario -->
+                <button type="submit" class="add-to-cart-btn">Añadir al carrito</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Otros elementos, scripts JavaScript, etc. -->
+</body>
+</html>

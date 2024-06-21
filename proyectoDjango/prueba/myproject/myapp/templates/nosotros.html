@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}DeMaldyStore - Nosotros{% endblock %}
+
+{% block content %}
+
+    <div class="grid-container-cartas">
+        <div class="card">
+            <img src="{% static 'images/mision.jpg' %}" alt="Misión">
+            <div class="card-content">
+                <h2>Misión</h2>
+                <p>En [De Maldy Store], nos dedicamos a liderar la vanguardia de la moda urbana streetwear, ofreciendo a nuestros clientes productos de alta calidad que reflejan su estilo de vida único. Nos esforzamos por inspirar confianza y autenticidad en cada prenda que creamos, fusionando diseño innovador con comodidad sin igual. Nuestra misión es ser más que una marca de ropa; aspiramos a ser una expresión de identidad para aquellos que buscan destacarse en la multitud, desafiando convenciones y celebrando la diversidad en todas sus formas.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'images/vision.webp' %}" alt="Visión">
+            <div class="card-content">
+                <h2>Visión</h2>
+                <p>La visión de [De Maldy Store] es trascender las fronteras de la moda urbana streetwear, convirtiéndonos en un referente global de innovación y estilo. Visualizamos un futuro en el que nuestras prendas sean reconocidas no solo por su calidad y diseño excepcional, sino también por el impacto positivo que generan en nuestras comunidades y en el medio ambiente. Nos comprometemos a seguir evolucionando y adaptándonos a las cambiantes tendencias del mercado, manteniendo siempre nuestra esencia auténtica y nuestra pasión por la creatividad y la autenticidad.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-container">
+        <video controls>
+            <source src="{% static 'images/y2meta.net_480p-old-money.mp4' %}" type="video/mp4">
+            Tu navegador no admite el elemento de video.
+        </video>
+    </div>
+
+    {% endblock %}
+  
+</body>
+</html>

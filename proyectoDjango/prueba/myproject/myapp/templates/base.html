@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DeMaldyStore{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/script.js' %}" defer></script>
+</head>
+<body>
+    <div class="contenedor-superior">
+        <p class="mensaje-amarillo">ENVIO GRATIS POR COMPRAS SOBRE $50.000</p>
+    </div>
+    <header class="header">
+        <div class="logo">
+            <img src="{% static 'images/dmaldy-fotor-2024032612528.png' %}" alt="logo">
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar...">
+            <button type="submit">Buscar</button>
+        </div>
+        <nav id="navbar">
+            <ul class="nav-links">
+                <li><a href="{% url 'index' %}">Inicio</a></li>
+                <li><a href="{% url 'hombre' %}">Tienda</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'productos' %}">CRUD</a></li>
+                <li><a href="#">@ {{ user.username }}</a></li>
+                {% elif user.is_authenticated %}
+                <li><a href="{% url 'micuenta' %}">Mi Perfil</a></li>
+                <li><a href="#">@ {{ user.username }}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'logout' %}" class="logout-form">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link">Cerrar Sesión</button>
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-link">
+                <button type="button">Iniciar Sesión</button>
+            </a>
+            <a href="{% url 'registro' %}" class="btn btn-link">
+                <button type="button">Registro</button>
+            </a>
+            {% endif %}
+        </div>
+    </header>
+    
+    {% block content %}
+    <!-- Este bloque se reemplazará con contenido específico de cada página -->
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="{% static 'images/dmaldy-fotor-2024032612528.png' %}" alt="Logo de la empresa">
+        </div>
+        <div class="footer-links">
+            <h4>Nosotros</h4>
+            <ul>
+                <li><a href="{% url 'ticket' %}">Crear Ticket</a></li>
+                <li><a href="#">Nuestra misión</a></li>
+                <li><a href="#">Nuestro equipo</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Su cuenta</h4>
+            <ul>
+                <li><a href="#">Informacion</a></li>
+                <li><a href="#">Pedidos</a></li>
+                <li><a href="#">Rastrear</a></li>
+                <li><a href="#">Devoluciones</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Productos</h4>
+            <ul>
+                <li><a href="#">Novedades</a></li>
+                <li><a href="#">Ofertas especiales</a></li>
+                <li><a href="#">Recien llegadas</a></li>
+            </ul>
+        </div>
+        <div class="disclaimer">
+            <p class="disclaimer">© 2024 De Maldy Store. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

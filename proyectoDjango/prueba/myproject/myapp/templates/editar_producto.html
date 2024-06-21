@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}DeMaldyStore - Editar{% endblock %}
+
+{% block content %}
+    
+</head>
+<body>
+ 
+
+    <main class="container">
+        <style>
+            .form-wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+    
+            .form-container {
+                max-width: 400px;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #f8f9fa;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+    
+            .form-group {
+                margin-bottom: 15px;
+            }
+    
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                text-align: left;
+            }
+    
+            .form-group input,
+            .form-group select {
+                width: calc(100% - 20px);
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+    
+            .btn-success {
+                background-color: #28a745;
+                border-color: #28a745;
+                color: #fff;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
+    
+        <div class="form-wrapper">
+            <div class="form-container">
+                <h2>Editando Producto</h2>
+                <form action="{% url 'editar_producto' producto.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_nombre">Nombre:</label>
+                        {{ form.nombre }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_descripcion">Descripción:</label>
+                        {{ form.descripcion }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_precio">Precio:</label>
+                        {{ form.precio }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_categoria">Categoría:</label>
+                        {{ form.categoria }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_stock">Stock:</label>
+                        {{ form.stock }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_imagen">Imagen:</label>
+                        {{ form.imagen }}
+                    </div>
+                    <input type="submit" value="Actualizar Producto" class="btn btn-success">
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}DeMaldyStore - Productos{% endblock %}
+
+{% block content %}
+    <style>
+        .custom-btn {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+
+        .custom-btn:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Estilos adicionales */
+        .producto-img {
+            max-width: 100px; /* Ajusta el tamaño máximo de la imagen */
+            height: auto;
+        }
+        .producto-row {
+            margin-bottom: 20px; /* Espacio entre filas de productos */
+        }
+        .btn {
+            padding: 5px 10px; /* Ajusta el padding de los botones */
+        }
+        /* Estilos para la tabla */
+        .table {
+            background-color: #fff; /* Fondo blanco para la tabla */
+            color: #000; /* Color de texto negro para la tabla */
+            width: 100%;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+   
+    <main class="container">
+        <h2>Productos</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id Producto</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Categoria</th>
+                        <th>Stock</th>
+                        <th>Imagen</th>
+                        <th>Actualizar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                        <tr class="producto-row">
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.descripcion }}</td>
+                            <td>{{ producto.precio }}</td>
+                            <td>{{ producto.categoria }}</td>
+                            <td>{{ producto.stock }}</td>
+                            {% if producto.imagen %}
+                                <td><img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="producto-img"></td>
+                            {% else %}
+                                <td><a href="#">Producto sin foto</a></td>
+                            {% endif %}
+                            <td><a href="{% url 'editar_producto' producto.id %}" class="btn custom-btn">Actualizar</a></td>
+
+                            <td>
+                                <form action="{% url 'eliminar_producto' producto.id %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn custom-btn">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="{% url 'crear_producto' %}" class="btn custom-btn">Crear Producto</a>
+        <button id="buscarProductoBtn" class="btn custom-btn">Buscar Producto</button>
+
+        <div id="buscarProductoModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Buscar Producto</h2>
+                <input type="text" id="buscarProductoId" placeholder="Ingrese ID del producto">
+                <button id="buscarProducto">Buscar</button>
+                <div id="productoResultado" style="display: none;">
+                    <h3>Resultado de la Búsqueda</h3>
+                    <div id="productoInfo"></div>
+                </div>
+            </div>
+        </div>
+    
+    </main>
+    <input type="checkbox" id="toggle-chat" class="toggle-checkbox">
+    <label for="toggle-chat" class="chat-icon">
+        <img src="{% static 'images/chat.png' %}" alt="Chat de ayuda">
+    </label>
+
+    <div id="chat-widget" class="chat-widget">
+        <p>Bienvenido al chat de ayuda. ¿En qué puedo ayudarte?</p>
+    </div>
+
+    <div class="contenedor-iconos">
+        <div class="icono">
+            <img src="{% static 'images/despacho.png' %}" alt="despacho">
+            <p>Despacho a todo Chile</p>
+        </div>
+        <div class="icono">
+            <img src="{% static 'images/pago1.png' %}" alt="pagos">
+            <p>Debito y Credito</p>
+        </div>
+        <div class="icono">
+            <img src="{% static 'images/webseguro.png' %}" alt="webseguro">
+            <p>Sitio Web Protegido</p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var modal = document.getElementById("buscarProductoModal");
+            var btn = document.getElementById("buscarProductoBtn");
+            var span = document.getElementsByClassName("close")[0];
+    
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
+    
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+    
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+    
+            document.getElementById("buscarProducto").onclick = function() {
+                var productoId = document.getElementById("buscarProductoId").value;
+                fetch(`/buscar-producto/?id=${productoId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            var productoCard = `
+                                <div class="card">
+                                    <img src="${data.producto.imagen}" alt="${data.producto.nombre}" class="producto-img">
+                                    <div class="container">
+                                        <h4><b>${data.producto.nombre}</b></h4>
+                                        <p><b>Descripción:</b> ${data.producto.descripcion}</p>
+                                        <p><b>Precio:</b> ${data.producto.precio}</p>
+                                        <p><b>Categoría:</b> ${data.producto.categoria}</p>
+                                        <p><b>Stock:</b> ${data.producto.stock}</p>
+                                    </div>
+                                </div>
+                            `;
+                            document.getElementById("productoResultado").innerHTML = productoCard;
+                            document.getElementById("productoResultado").style.display = "block";
+                        } else {
+                            document.getElementById("productoInfo").innerHTML = `<p>${data.message}</p>`;
+                        }
+                    });
+            };
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>

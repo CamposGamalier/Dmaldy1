@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+</head>
+<div class="main-container">
+    <div class="container">
+        <h2>Carrito de Compras</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in carrito_items %}
+                <tr>
+                    <td>{{ item.producto.nombre }}</td>
+                    <td>${{ item.producto.precio }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>${{ item.producto.precio|mul:item.cantidad }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="3"><strong>Total</strong></td>
+                    <td>${{ total }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
